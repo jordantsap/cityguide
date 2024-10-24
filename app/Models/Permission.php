@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Permission extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function role()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Role::class);
     }
+
 }
