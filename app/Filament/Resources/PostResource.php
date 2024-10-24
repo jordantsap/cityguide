@@ -12,6 +12,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
@@ -19,6 +20,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class PostResource extends Resource
 {
@@ -30,7 +32,14 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title'),
+                TextInput::make('title')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, string $state,Forms\Set $set) {
+                        if ($operation === 'edit') {
+                            return;
+                        }
+                        $set('slug', Str::slug($state));
+                    }),
                 TextInput::make('slug'),
                 RichEditor::make('body'),
                 Select::make('category_id')
