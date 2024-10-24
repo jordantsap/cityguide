@@ -14,10 +14,15 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationGroup = "User management";
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -25,7 +30,14 @@ class RoleResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name'),
+                TextInput::make('name')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, string $state,Forms\Set $set) {
+                        if ($operation === 'edit') {
+                            return;
+                        }
+                        $set('slug', Str::slug($state));
+                    }),
             ]);
     }
 

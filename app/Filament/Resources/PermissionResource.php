@@ -15,10 +15,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Models\Permission;
+use Illuminate\Support\Str;
 
 class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationGroup = "User management";
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -26,7 +31,14 @@ class PermissionResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name'),
+                TextInput::make('name')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, string $state,Forms\Set $set) {
+                        if ($operation === 'edit') {
+                            return;
+                        }
+                        $set('slug', Str::slug($state));
+                    }),
                 Select::make('role_id')
                     ->label('Role')
                     ->relationship('role','name')

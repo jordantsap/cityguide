@@ -26,6 +26,10 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
+    protected static ?string $navigationGroup = "Blog";
+
+    protected static ?int $navigationSort = 5;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -57,7 +61,7 @@ class PostResource extends Resource
             ->columns([
                 TextColumn::make('title'),
                 TextColumn::make('slug'),
-                TextColumn::make('body'),
+                TextColumn::make('body')->limit(15),
                 TextColumn::make('category.name'),
                 ImageColumn::make('thumbnail')
             ])
