@@ -2,27 +2,23 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\RelationManagers\FieldsRelationManager;
-use App\Filament\Resources\FieldResource\Pages;
-use App\Filament\Resources\FieldResource\RelationManagers;
-use App\Models\Field;
+use App\Filament\Resources\RoleResource\Pages;
+use App\Filament\Resources\RoleResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
-class FieldResource extends Resource
+class RoleResource extends Resource
 {
-    protected static ?string $model = Field::class;
-
-    protected static bool $shouldSkipAuthorization = true;
+    protected static ?string $model = Role::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -30,7 +26,7 @@ class FieldResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')
+                TextInput::make('name')
                     ->live(onBlur: true)
                     ->afterStateUpdated(function (string $operation, string $state,Forms\Set $set) {
                         if ($operation === 'edit') {
@@ -38,27 +34,16 @@ class FieldResource extends Resource
                         }
                         $set('slug', Str::slug($state));
                     }),
-                TextInput::make('type'),
-                TextInput::make('name'),
-                TextInput::make('placeholder'),
-                Forms\Components\Select::make('multiple')
-                    ->options([
-                        'yes' => 'yes',
-                        'no' => 'no',
-                    ])
-            ])
-            ->columns(3);
+                TextInput::make('slug'),
+            ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('title')->limit(20),
-                TextColumn::make('type'),
                 TextColumn::make('name'),
-                TextColumn::make('placeholder'),
-                TextColumn::make('multiple'),
+                TextColumn::make('slug'),
             ])
             ->filters([
                 //
@@ -77,16 +62,16 @@ class FieldResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\CategoriesRelationManager::class
+            //
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFields::route('/'),
-            'create' => Pages\CreateField::route('/create'),
-            'edit' => Pages\EditField::route('/{record}/edit'),
+            'index' => Pages\ListRoles::route('/'),
+            'create' => Pages\CreateRole::route('/create'),
+            'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
 }

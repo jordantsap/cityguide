@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Permission;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,10 +20,8 @@ class DatabaseSeeder extends Seeder
              'email' => 'admin@admin.com',
              'password' => bcrypt('123456'),
          ]);
-        $permissions = Permission::defaultPermissions();
-        foreach ($permissions as $perms) {
-            Permission::firstOrCreate(['name' => $perms]);
-        }
-        $this->call(RoleSeeder::class);
+
+
+        $this->call(FieldSeeder::class);
     }
 }

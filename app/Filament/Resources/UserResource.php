@@ -42,9 +42,11 @@ class UserResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 TextInput::make('email')->required()->email(),
-                TextInput::make('password')->required(),
+//                TextInput::make('password')->required(),
                 Select::make('role_id')
-                    ->relationship('role', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('roles', 'name')
             ]);
     }
 
@@ -86,6 +88,18 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
+        ];
+    }
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view',
+            'view_any',
+            'create',
+            'update',
+            'delete',
+            'delete_any',
+            'publish'
         ];
     }
 }

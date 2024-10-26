@@ -14,6 +14,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class ProductResource extends Resource
 {
@@ -32,6 +33,15 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, string $state,Forms\Set $set) {
+                        if ($operation === 'edit') {
+                            return;
+                        }
+                        $set('slug', Str::slug($state));
+                    }),
+                TextInput::make('slug'),
+
             ]);
     }
 

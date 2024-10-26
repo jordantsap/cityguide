@@ -15,7 +15,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_category');
+        return true;//$user->can('view_any_category');
     }
 
     /**
@@ -23,7 +23,7 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category): bool
     {
-        return $user->can('view_category');
+        return true;//$user->can('view_category');
     }
 
     /**
@@ -31,7 +31,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_category');
+        return true;//$user->can('create_category');
     }
 
     /**

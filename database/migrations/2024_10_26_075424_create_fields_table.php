@@ -16,12 +16,11 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('type')->nullable();
             $table->string('class')->nullable();
-//            $table->string('id');
+
             $table->string('placeholder')->nullable();
             $table->string('multiple')->nullable();
 
             $table->string('name')->nullable();
-            $table->timestamps();
         });
     }
 

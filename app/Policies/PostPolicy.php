@@ -15,7 +15,7 @@ class PostPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_post');
+        return true;//$user->can('view_any_post');
     }
 
     /**
@@ -23,7 +23,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post): bool
     {
-        return $user->can('view_post');
+        return true;//$user->can('view_post');
     }
 
     /**
@@ -31,7 +31,7 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_post');
+        return true;//$user->can('create_post');
     }
 
     /**
@@ -39,7 +39,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        return $user->can('update_post');
+        return true;//$user->can('update_post');
     }
 
     /**
