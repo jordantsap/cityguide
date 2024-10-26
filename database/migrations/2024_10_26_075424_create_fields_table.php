@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('multiple')->nullable();
 
             $table->string('name')->nullable();
+            $table->timestamps();
         });
     }
 

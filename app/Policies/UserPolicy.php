@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_user');
+        return true;//$user->can('view_any_user');
     }
 
     /**
@@ -62,7 +62,7 @@ class UserPolicy
      */
     public function delete(User $user): bool
     {
-        return $user->can('delete_user');
+        return false; //$user->can('delete_user');
     }
 
     /**
@@ -73,7 +73,7 @@ class UserPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_user');
+        return false;// $user->can('delete_any_user');
     }
 
     /**
@@ -84,7 +84,7 @@ class UserPolicy
      */
     public function forceDelete(User $user): bool
     {
-        return $user->can('force_delete_user');
+        return false;// $user->can('force_delete_user');
     }
 
     /**

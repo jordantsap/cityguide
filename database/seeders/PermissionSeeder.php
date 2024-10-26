@@ -5,28 +5,19 @@ namespace Database\Seeders;
 use App\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
-class PermissionTableSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         // Seed the default permissions
         $permissions = Permission::defaultPermissions();
         foreach ($permissions as $perms) {
             Permission::firstOrCreate(['name' => $perms]);
         }
-
-        // $admin = Role::where('name','Admin')->first();
-        //
-        // $createTasks = new Permission();
-        // $createTasks->slug = 'create-tasks';
-        // $createTasks->name = 'Create Tasks';
-        // $createTasks->save();
-        // $createTasks->roles()->attach($admin);
     }
 }

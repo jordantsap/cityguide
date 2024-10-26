@@ -11,7 +11,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
@@ -20,6 +19,9 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
+    protected static ?string $navigationGroup = "User management";
+
+    protected static ?int $navigationSort = 3;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -35,6 +37,10 @@ class RoleResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 TextInput::make('slug'),
+                Forms\Components\Select::make('permissions_id')
+                    ->relationship('permissions', 'name')
+                ->multiple()
+                ->preload()
             ]);
     }
 
@@ -50,11 +56,11 @@ class RoleResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+//                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+//                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -74,4 +80,9 @@ class RoleResource extends Resource
             'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
+//
+//    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+//    {
+//        return parent::getEloquentQuery()->where(function ('name', '!=','Admin');
+//    }
 }

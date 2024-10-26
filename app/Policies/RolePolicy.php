@@ -47,7 +47,7 @@ class RolePolicy
      */
     public function delete(User $user, Role $role): bool
     {
-        return $user->can('delete_role');
+        return false;//$user->can('delete_role');
     }
 
     /**
@@ -55,7 +55,7 @@ class RolePolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_role');
+        return false;//$user->can('delete_any_role');
     }
 
     /**
@@ -63,7 +63,7 @@ class RolePolicy
      */
     public function forceDelete(User $user, Role $role): bool
     {
-        return $user->can('{{ ForceDelete }}');
+        return false;// $user->can('{{ ForceDelete }}');
     }
 
     /**

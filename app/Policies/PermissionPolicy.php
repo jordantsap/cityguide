@@ -39,7 +39,7 @@ class PermissionPolicy
      */
     public function update(User $user, Permission $permission): bool
     {
-        return $user->can('update_permission');
+        return false;//$user->can('update_permission');
     }
 
     /**
@@ -47,7 +47,7 @@ class PermissionPolicy
      */
     public function delete(User $user, Permission $permission): bool
     {
-        return $user->can('delete_permission');
+        return false;//$user->can('delete_permission');
     }
 
     /**
@@ -55,7 +55,7 @@ class PermissionPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_permission');
+        return false;// $user->can('delete_any_permission');
     }
 
     /**

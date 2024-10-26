@@ -10,11 +10,15 @@ use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserResource extends Resource
@@ -46,7 +50,13 @@ class UserResource extends Resource
                 Select::make('role_id')
                     ->multiple()
                     ->preload()
-                    ->relationship('roles', 'name')
+                    ->relationship('roles', 'name'),
+                TextInput::make('password')
+                    ->password(),
+                Forms\Components\Select::make('permissions_id')
+                    ->relationship('permissions', 'name')
+                    ->multiple()
+                    ->preload()
             ]);
     }
 
@@ -60,6 +70,9 @@ class UserResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')->sortable()->searchable()
                     ->toggleable(),
+                TextColumn::make('roles.name')->sortable()->searchable(),
+                TextColumn::make('permissions.name')
+                ->limit(20),
             ])
             ->filters([
                 //
