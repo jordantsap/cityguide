@@ -15,4 +15,13 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function companies(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+            return $this->hasMany(Company::class);
+    }
+    public function fields(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Field::class);
+    }
 }
