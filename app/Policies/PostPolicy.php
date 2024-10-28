@@ -47,7 +47,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        return $user->can('delete_post');
+        return true;//$user->can('delete_post');
     }
 
     /**

@@ -6,7 +6,10 @@ use App\Filament\Resources\CategoryResource\RelationManagers\FieldsRelationManag
 use App\Filament\Resources\FieldResource\Pages;
 use App\Filament\Resources\FieldResource\RelationManagers;
 use App\Models\Field;
+use App\Models\FieldType;
+use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -38,10 +41,15 @@ class FieldResource extends Resource
                         }
                         $set('slug', Str::slug($state));
                     }),
-                TextInput::make('type'),
+                Select::make('field_type_id')
+                    ->label('Field Type')
+//                    ->options(FieldType::all()->pluck('title', 'id'))
+                    ->relationship('fieldType', 'name')
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('name'),
                 TextInput::make('placeholder'),
-                Forms\Components\Select::make('multiple')
+                Select::make('multiple')
                     ->options([
                         'yes' => 'yes',
                         'no' => 'no',
@@ -55,7 +63,7 @@ class FieldResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')->limit(20),
-                TextColumn::make('type'),
+                TextColumn::make('fieldType.name')->limit(20),
                 TextColumn::make('name'),
                 TextColumn::make('placeholder'),
                 TextColumn::make('multiple'),

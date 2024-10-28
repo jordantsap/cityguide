@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\FieldType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,9 +17,11 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('type')->nullable();
             $table->string('class')->nullable();
+            $table->foreignIdFor(FieldType::class);
 
             $table->string('placeholder')->nullable();
             $table->string('multiple')->nullable();
+            $table->string('required')->nullable();
 
             $table->string('name')->nullable();
             $table->timestamps();

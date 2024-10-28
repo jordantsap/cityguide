@@ -24,8 +24,10 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call(FieldSeeder::class);
+        $this->call(FieldTypeSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(CategorySeeder::class);
 
     }
 }

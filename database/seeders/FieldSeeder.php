@@ -20,6 +20,7 @@ class FieldSeeder extends Seeder
             'placeholder' => 'politics',
             'multiple' => 'false',
             'name' => 'name',
+            'field_type_id' => rand(1, 3),
         ]);
     }
 }

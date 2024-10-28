@@ -5,7 +5,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CompanyResource\Pages;
 use App\Filament\Resources\CompanyResource\RelationManagers;
 use App\Models\Company;
+use App\Models\Field;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -23,6 +26,7 @@ class CompanyResource extends Resource
     protected static ?string $navigationGroup = "Company Management";
 
     protected static ?int $navigationSort = 5;
+
 
     protected static bool $shouldSkipAuthorization = true;
 
@@ -45,6 +49,19 @@ class CompanyResource extends Resource
                 TextInput::make('phone'),
                 Forms\Components\Select::make('category_id')
                 ->relationship('category', 'name')
+                ,
+//                ->columnSpanFull(),
+
+                Repeater::make('fields')
+//                    ->relationship()
+                    ->schema([
+                        TextInput::make('name')->required(),
+                        Select::make('field')
+                            ->options(Field::query()->pluck('title','id'))
+                            ->required(),
+                    ])
+                    ->defaultItems(1)
+                    ->columnSpanFull()
             ]);
     }
 
@@ -63,6 +80,7 @@ class CompanyResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -85,5 +103,10 @@ class CompanyResource extends Resource
             'create' => Pages\CreateCompany::route('/create'),
             'edit' => Pages\EditCompany::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

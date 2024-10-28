@@ -2,20 +2,22 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\FieldType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CategorySeeder extends Seeder
+class FieldTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Category::create([
-            'name' => 'Cultural',
-            'slug' => 'cultural',
+        FieldType::create([
+            'name' => 'input',
+        ]);
+        FieldType::create([
+            'name' => 'select',
         ]);
     }
 }

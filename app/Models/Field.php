@@ -15,4 +15,9 @@ class Field extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function fieldType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(FieldType::class);
+    }
 }

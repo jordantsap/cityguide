@@ -52,7 +52,9 @@ class UserResource extends Resource
                     ->preload()
                     ->relationship('roles', 'name'),
                 TextInput::make('password')
-                    ->password(),
+                    ->password()
+                    ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
+                    ->required(fn (string $operation): bool => $operation === 'create'),
                 Forms\Components\Select::make('permissions_id')
                     ->relationship('permissions', 'name')
                     ->multiple()
@@ -70,7 +72,8 @@ class UserResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')->sortable()->searchable()
                     ->toggleable(),
-                TextColumn::make('roles.name')->sortable()->searchable(),
+                TextColumn::make('roles.name')->sortable()->searchable()
+                    ->limit(20),
                 TextColumn::make('permissions.name')
                 ->limit(20),
             ])
