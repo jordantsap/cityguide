@@ -53,8 +53,9 @@ class UserResource extends Resource
                     ->relationship('roles', 'name'),
                 TextInput::make('password')
                     ->password()
-                    ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
-                    ->required(fn (string $operation): bool => $operation === 'create'),
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (Page $livewire) => ($livewire instanceof CreateRecord)),
                 Forms\Components\Select::make('permissions_id')
                     ->relationship('permissions', 'name')
                     ->multiple()
@@ -66,7 +67,9 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable()
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('email')->sortable()->searchable()
                     ->toggleable(),
@@ -82,7 +85,8 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-//                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

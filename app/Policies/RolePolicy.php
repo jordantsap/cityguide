@@ -15,7 +15,7 @@ class RolePolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;//$user->can('view_any_role');
+        return $user->hasAnyRole(['Super-Admin','panel_user']);//$user->can('view_any_role');
     }
 
     /**
@@ -23,7 +23,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role): bool
     {
-        return true;//$user->can('view_role');
+        return $user->hasAnyRole('Super-Admin','panel_user');//$user->can('view_role');
     }
 
     /**
@@ -31,7 +31,7 @@ class RolePolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_role');
+        return $user->hasAnyRole('Super-Admin','panel_user');
     }
 
     /**
@@ -39,7 +39,7 @@ class RolePolicy
      */
     public function update(User $user, Role $role): bool
     {
-        return true;//$user->can('update_role');
+        return $user->hasAnyRole('Super-Admin','panel_user');
     }
 
     /**
@@ -47,7 +47,7 @@ class RolePolicy
      */
     public function delete(User $user, Role $role): bool
     {
-        return false;//$user->can('delete_role');
+        return false;//$user->hasAnyRole('Super-Admin');//$user->can('delete_role');
     }
 
     /**

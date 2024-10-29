@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
@@ -18,8 +19,10 @@ class DatabaseSeeder extends Seeder
 
          \App\Models\User::factory()->create([
              'name' => 'Admin User',
+             'username' => 'AdminUser',
+             'fullname' => 'AdminUser',
              'email' => 'admin@admin.com',
-             'password' => bcrypt('123456'),
+             'password' => Hash::make('123456'),
          ]);
 
 
@@ -28,6 +31,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(CategorySeeder::class);
+
+
 
     }
 }

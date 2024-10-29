@@ -6,8 +6,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
+use Filament\Actions\ViewAction;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -51,7 +53,9 @@ class PostResource extends Resource
                     ->relationship('category','name'),
                 FileUpload::make('thumbnail')
                 ->disk('public')
-                ->directory('thumbnails')
+                ->directory('thumbnails/posts'),
+                Hidden::make('user_id')
+                    ->default(auth()->id()),
             ]);
     }
 
@@ -59,11 +63,27 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title'),
-                TextColumn::make('slug'),
-                TextColumn::make('body')->limit(15),
-                TextColumn::make('category.name'),
+                TextColumn::make('title')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('slug')
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('body')
+                    ->limit(15)
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('category.name')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
                 ImageColumn::make('thumbnail')
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('user.name')
+                    ->searchable()
+                    ->toggleable(),
             ])
             ->filters([
                 //
@@ -71,6 +91,8 @@ class PostResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make()
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -93,5 +115,9 @@ class PostResource extends Resource
             'create' => Pages\CreatePost::route('/create'),
             'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
+    }
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

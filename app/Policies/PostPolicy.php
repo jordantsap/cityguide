@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Post;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class PostPolicy
 {
@@ -15,7 +16,8 @@ class PostPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;//$user->can('view_any_post');
+        // Allow any authenticated user to view posts
+        return $user->hasAnyRole(['Super-Admin','panel_user', 'Blogger']);
     }
 
     /**
@@ -23,7 +25,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post): bool
     {
-        return true;//$user->can('view_post');
+        return true;//$user->id == $post->user_id;
     }
 
     /**
@@ -31,7 +33,7 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
-        return true;//$user->can('create_post');
+        return $user->hasAnyRole(['Super-Admin','panel_user', 'Blogger']);
     }
 
     /**
@@ -39,7 +41,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        return true;//$user->can('update_post');
+        return $user->id == $post->user_id;
     }
 
     /**
@@ -47,7 +49,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        return true;//$user->can('delete_post');
+        return $user->id === $post->user_id;
     }
 
     /**

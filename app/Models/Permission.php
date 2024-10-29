@@ -9,7 +9,7 @@ class Permission extends \Spatie\Permission\Models\Permission
 {
     use HasFactory;
 
-    public static function defaultPermissions()
+    public static function defaultPermissions(): array
     {
         return [
 

@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;//$user->can('view_any_user');
+        return $user->hasAnyRole(['Super-Admin','panel_user']);
     }
 
     /**
@@ -29,7 +29,8 @@ class UserPolicy
      */
     public function view(User $user): bool
     {
-        return true;//$user->can('view_user');
+        return $user->hasAnyRole(['Super-Admin','panel_user']);
+
     }
 
     /**
@@ -40,7 +41,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return true;//$user->can('create_user');
+        return $user->hasAnyRole(['Super-Admin','panel_user']);
     }
 
     /**
@@ -51,7 +52,8 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-        return true;//$user->can('update_user');
+        return $user->hasAnyRole(['Super-Admin','panel_user']);
+
     }
 
     /**
