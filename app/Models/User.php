@@ -21,7 +21,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;//$this->hasRole('panel_user');
+        return $this->hasRole('panel_user');
     }
 
     /**
@@ -76,5 +76,14 @@ class User extends Authenticatable implements FilamentUser
     public function companies(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Company::class);
+    }
+    public function accommodations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Accommodation::class);
+    }
+
+    public function rooms(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Room::class);
     }
 }

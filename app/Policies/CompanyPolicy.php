@@ -15,7 +15,7 @@ class CompanyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole('Company/Products Owner');//$user->can('delete_role');
+        return $user->hasAnyRole('Super-Admin','Company/Products Owner');//$user->can('delete_role');
     }
 
     /**

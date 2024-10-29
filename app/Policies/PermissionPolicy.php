@@ -15,7 +15,7 @@ class PermissionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole('Super-Admin');//$user->can('delete_role');
+        return $user->hasAnyRole('Super-Admin','Super-Admin');//$user->can('delete_role');
     }
 
     /**

@@ -15,7 +15,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole(['Blogger']);
+        return $user->hasAnyRole(['Super-Admin','Blogger']);
     }
 
     /**

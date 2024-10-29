@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
-use App\Models\Product;
+use App\Filament\Resources\AccommodationResource\Pages;
+use App\Filament\Resources\AccommodationResource\RelationManagers;
+use App\Models\Accommodation;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
@@ -17,15 +17,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
-class ProductResource extends Resource
+class AccommodationResource extends Resource
 {
-    protected static ?string $model = Product::class;
+    protected static ?string $model = Accommodation::class;
 
-    protected static ?string $navigationGroup = "Company Management";
+
+    protected static ?string $navigationGroup = "Booking Management";
 
     protected static ?int $navigationSort = 5;
-
-//    protected static bool $shouldSkipAuthorization = true;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -44,10 +43,6 @@ class ProductResource extends Resource
                 TextInput::make('slug'),
                 Hidden::make('user_id')
                     ->default(auth()->id()),
-                TextInput::make('sku'),
-                TextInput::make('price'),
-                TextInput::make('description'),
-                TextInput::make('quantity'),
             ]);
     }
 
@@ -58,20 +53,17 @@ class ProductResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('slug'),
                 TextColumn::make('user.name'),
-                TextColumn::make('sku'),
-                TextColumn::make('price'),
-                TextColumn::make('description'),
-                TextColumn::make('quantity'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-//                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -86,9 +78,9 @@ class ProductResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProducts::route('/'),
-            'create' => Pages\CreateProduct::route('/create'),
-            'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'index' => Pages\ListAccommodations::route('/'),
+            'create' => Pages\CreateAccommodation::route('/create'),
+            'edit' => Pages\EditAccommodation::route('/{record}/edit'),
         ];
     }
 }

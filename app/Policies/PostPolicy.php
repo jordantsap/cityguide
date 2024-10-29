@@ -17,7 +17,7 @@ class PostPolicy
     public function viewAny(User $user): bool
     {
         // Allow any authenticated user to view posts
-        return $user->hasAnyRole(['Blogger']);
+        return $user->hasAnyRole(['Super-Admin','Blogger']);
     }
 
     /**
