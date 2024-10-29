@@ -19,7 +19,7 @@ class FieldTypeResource extends Resource
 {
     protected static ?string $model = FieldType::class;
 
-    protected static bool $shouldSkipAuthorization = true;
+//    protected static bool $shouldSkipAuthorization = true;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

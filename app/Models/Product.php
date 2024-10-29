@@ -21,4 +21,9 @@ class Product extends Model
     {
         return $this->hasManyThrough(Field::class, Category::class);
     }
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

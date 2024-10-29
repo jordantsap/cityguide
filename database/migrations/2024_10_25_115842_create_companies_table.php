@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->foreignIdFor(Category::class);
+            $table->foreignIdFor(\App\Models\User::class);
             $table->json('fields')->nullable();
             $table->timestamps();
         });

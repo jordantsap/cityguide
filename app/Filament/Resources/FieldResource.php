@@ -25,7 +25,7 @@ class FieldResource extends Resource
 {
     protected static ?string $model = Field::class;
 
-    protected static bool $shouldSkipAuthorization = true;
+//    protected static bool $shouldSkipAuthorization = true;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

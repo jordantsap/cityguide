@@ -15,7 +15,7 @@ class CompanyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_company');
+        return $user->hasAnyRole('Company/Products Owner');//$user->can('delete_role');
     }
 
     /**
@@ -23,7 +23,7 @@ class CompanyPolicy
      */
     public function view(User $user, Company $company): bool
     {
-        return $user->can('view_company');
+        return $user->hasAnyRole('Company/Products Owner');//$user->can('delete_role');
     }
 
     /**
@@ -31,7 +31,7 @@ class CompanyPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_company');
+        return $user->hasAnyRole('Company/Products Owner');//$user->can('delete_role');
     }
 
     /**
@@ -39,7 +39,7 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company): bool
     {
-        return $user->can('update_company');
+        return $user->hasAnyRole('Company/Products Owner');//$user->can('delete_role');
     }
 
     /**
@@ -47,7 +47,7 @@ class CompanyPolicy
      */
     public function delete(User $user, Company $company): bool
     {
-        return $user->can('delete_company');
+        return $user->hasAnyRole('Super-Admin');//$user->can('delete_role');
     }
 
     /**
@@ -55,7 +55,7 @@ class CompanyPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_company');
+        return $user->can('Super-Admin');
     }
 
     /**

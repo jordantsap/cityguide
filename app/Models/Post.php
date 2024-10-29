@@ -31,4 +31,9 @@ class Post extends Model
             Storage::disk('public')->delete($post->thumbnail); // Delete the file
         });
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }

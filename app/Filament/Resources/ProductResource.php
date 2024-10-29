@@ -6,6 +6,7 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -24,7 +25,7 @@ class ProductResource extends Resource
 
     protected static ?int $navigationSort = 5;
 
-    protected static bool $shouldSkipAuthorization = true;
+//    protected static bool $shouldSkipAuthorization = true;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -41,6 +42,8 @@ class ProductResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 TextInput::make('slug'),
+                Hidden::make('user_id')
+                    ->default(auth()->id()),
 
             ]);
     }
@@ -49,7 +52,9 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('name'),
+                TextColumn::make('slug'),
+                TextColumn::make('user.name'),
             ])
             ->filters([
                 //
@@ -59,7 +64,7 @@ class ProductResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+//                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

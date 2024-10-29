@@ -15,7 +15,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole(['Super-Admin','panel_user']);
+        return $user->hasAnyRole(['Blogger']);
     }
 
     /**
@@ -23,7 +23,7 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category): bool
     {
-        return $user->hasAnyRole(['Super-Admin','panel_user']);
+        return $user->hasAnyRole(['Blogger']);
     }
 
     /**
@@ -47,7 +47,7 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        return $user->hasAnyRole(['Super-Admin','panel_user']);
+        return $user->hasAnyRole(['Blogger']);
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoryPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->hasAnyRole(['Super-Admin','panel_user']);
+        return $user->hasAnyRole(['Blogger']);
     }
 
     /**
@@ -63,7 +63,7 @@ class CategoryPolicy
      */
     public function forceDelete(User $user, Category $category): bool
     {
-        return $user->hasAnyRole(['Super-Admin','panel_user']);
+        return $user->hasAnyRole(['Blogger']);
     }
 
     /**

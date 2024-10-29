@@ -17,7 +17,7 @@ class PostPolicy
     public function viewAny(User $user): bool
     {
         // Allow any authenticated user to view posts
-        return $user->hasAnyRole(['Super-Admin','panel_user', 'Blogger']);
+        return $user->hasAnyRole(['Blogger']);
     }
 
     /**
@@ -25,7 +25,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post): bool
     {
-        return true;//$user->id == $post->user_id;
+        return $user->hasAnyRole(['Blogger']);
     }
 
     /**
@@ -57,7 +57,7 @@ class PostPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_post');
+        return $user->hasAnyRole(['Blogger']);
     }
 
     /**

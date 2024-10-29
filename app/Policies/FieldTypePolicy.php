@@ -13,7 +13,7 @@ class FieldTypePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class FieldTypePolicy
      */
     public function view(User $user, FieldType $fieldType): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class FieldTypePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class FieldTypePolicy
      */
     public function update(User $user, FieldType $fieldType): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,7 +45,7 @@ class FieldTypePolicy
      */
     public function delete(User $user, FieldType $fieldType): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +53,8 @@ class FieldTypePolicy
      */
     public function restore(User $user, FieldType $fieldType): bool
     {
-        //
+        return true;
+
     }
 
     /**

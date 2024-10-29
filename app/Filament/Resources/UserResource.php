@@ -73,12 +73,12 @@ class UserResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('email')->sortable()->searchable()
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('created_at')->sortable()->searchable()
+                Tables\Columns\TextColumn::make('created_at')->searchable()
                     ->toggleable(),
                 TextColumn::make('roles.name')->sortable()->searchable()
-                    ->limit(20),
+                    ->limit(30),
                 TextColumn::make('permissions.name')
-                ->limit(20),
+                ->limit(10),
             ])
             ->filters([
                 //

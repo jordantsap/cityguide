@@ -7,6 +7,7 @@ use App\Filament\Resources\CompanyResource\RelationManagers;
 use App\Models\Company;
 use App\Models\Field;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -28,7 +29,7 @@ class CompanyResource extends Resource
     protected static ?int $navigationSort = 5;
 
 
-    protected static bool $shouldSkipAuthorization = true;
+//    protected static bool $shouldSkipAuthorization = true;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -48,8 +49,9 @@ class CompanyResource extends Resource
                 TextInput::make('address'),
                 TextInput::make('phone'),
                 Forms\Components\Select::make('category_id')
-                ->relationship('category', 'name')
-                ,
+                ->relationship('category', 'name'),
+                Hidden::make('user_id')
+                    ->default(auth()->id()),
 //                ->columnSpanFull(),
 
                 Repeater::make('fields')
@@ -73,7 +75,8 @@ class CompanyResource extends Resource
                 TextColumn::make('slug'),
                 TextColumn::make('address'),
                 TextColumn::make('phone'),
-                TextColumn::make('category.name')
+                TextColumn::make('category.name'),
+                TextColumn::make('user.name'),
             ])
             ->filters([
                 //
@@ -108,5 +111,10 @@ class CompanyResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }
