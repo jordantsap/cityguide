@@ -31,7 +31,7 @@ class ProductPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('Company/Products Owner');//$user->can('delete_role');
+        return $user->hasRole(['Super-Admin','Company/Products Owner']);//$user->can('delete_role');
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product): bool
     {
-        return $user->id === $product->user_id;
+        return $user->hasRole('Super-Admin') || $user->id === $product->user_id;
     }
 
     /**
@@ -47,7 +47,7 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product): bool
     {
-        return $user->id === $product->user_id;
+        return $user->hasRole('Super-Admin') || $user->id === $product->user_id;
     }
 
     /**
@@ -55,7 +55,7 @@ class ProductPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->hasAnyRole('Company/Products Owner');//$user->can('delete_role');
+        return $user->hasAnyRole(['SuperAdmin','Company/Products Owner']);//$user->can('delete_role');
     }
 
     /**
