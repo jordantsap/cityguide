@@ -37,7 +37,7 @@ class AccommodationPolicy
      */
     public function update(User $user, Accommodation $accommodation): bool
     {
-        return true;
+        return $user->hasAnyRole(['Accommodation/Rooms Owner']);
     }
 
     /**

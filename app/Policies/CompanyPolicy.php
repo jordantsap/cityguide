@@ -31,7 +31,7 @@ class CompanyPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyRole('Company/Products Owner');//$user->can('delete_role');
+        return $user->hasAnyRole(['Super-Admin','Company/Products Owner']);//$user->can('delete_role');
     }
 
     /**
@@ -39,7 +39,7 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company): bool
     {
-        return $user->hasAnyRole('Company/Products Owner');//$user->can('delete_role');
+        return $user->hasAnyRole(['Super-Admin','Company/Products Owner']);//$user->can('delete_role');
     }
 
     /**
@@ -47,7 +47,7 @@ class CompanyPolicy
      */
     public function delete(User $user, Company $company): bool
     {
-        return $user->hasAnyRole('Super-Admin');//$user->can('delete_role');
+        return $user->hasAnyRole(['Super-Admin','Company/Products Owner']);//$user->can('delete_role');
     }
 
     /**

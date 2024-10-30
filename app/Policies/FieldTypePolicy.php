@@ -13,7 +13,7 @@ class FieldTypePolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->hasRole('Super-Admin');
     }
 
     /**
@@ -29,7 +29,7 @@ class FieldTypePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->hasRole('Super-Admin');
     }
 
     /**
@@ -37,7 +37,7 @@ class FieldTypePolicy
      */
     public function update(User $user, FieldType $fieldType): bool
     {
-        return true;
+        return $user->hasRole('Super-Admin');
     }
 
     /**
@@ -45,7 +45,7 @@ class FieldTypePolicy
      */
     public function delete(User $user, FieldType $fieldType): bool
     {
-        return true;
+        return $user->hasRole('Super-Admin');
     }
 
     /**
@@ -53,7 +53,7 @@ class FieldTypePolicy
      */
     public function restore(User $user, FieldType $fieldType): bool
     {
-        return true;
+        return $user->hasRole('Super-Admin');
 
     }
 
@@ -62,6 +62,6 @@ class FieldTypePolicy
      */
     public function forceDelete(User $user, FieldType $fieldType): bool
     {
-        //
+        return $user->hasRole('Super-Admin');
     }
 }
