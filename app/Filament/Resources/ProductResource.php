@@ -4,9 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Models\Company;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -48,6 +50,10 @@ class ProductResource extends Resource
                 TextInput::make('price'),
                 TextInput::make('description'),
                 TextInput::make('quantity'),
+                Select::make('company_id')
+                    ->label('Company')
+                    ->options(Company::all()->pluck('name', 'id'))
+                    ->searchable()
             ]);
     }
 
@@ -58,6 +64,7 @@ class ProductResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('slug'),
                 TextColumn::make('user.name'),
+                TextColumn::make('company.name'),
                 TextColumn::make('sku'),
                 TextColumn::make('price'),
                 TextColumn::make('description'),

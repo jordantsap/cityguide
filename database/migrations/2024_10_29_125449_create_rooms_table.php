@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(\App\Models\Accommodation::class);
             $table->timestamps();
         });
     }

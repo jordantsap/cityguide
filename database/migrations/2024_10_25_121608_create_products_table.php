@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(\App\Models\Company::class);
             $table->string('sku')->unique();
             $table->longText('description')->nullable();
             $table->decimal('price', 10, 2);
