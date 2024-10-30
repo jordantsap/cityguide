@@ -8,6 +8,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -36,6 +37,7 @@ class User extends Authenticatable implements FilamentUser
         'username',
         'fullname',
         'username',
+//        'role_id',
     ];
 
     /**
@@ -58,31 +60,31 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
 
-    public function role(): BelongsToMany
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
 
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
-    public function products(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
 
-    public function companies(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function companies(): HasMany
     {
         return $this->hasMany(Company::class);
     }
-    public function accommodations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function accommodations(): HasMany
     {
         return $this->hasMany(Accommodation::class);
     }
 
-    public function rooms(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function rooms(): HasMany
     {
         return $this->hasMany(Room::class);
     }
