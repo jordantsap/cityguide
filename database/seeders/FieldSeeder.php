@@ -20,7 +20,16 @@ class FieldSeeder extends Seeder
             'placeholder' => 'politics',
             'multiple' => 'false',
             'name' => 'name',
-            'field_type_id' => rand(1, 3),
+            'field_type_id' => rand(1, 2),
+        ]);
+        Field::create([
+            'title' => 'select',
+            'type' => '',
+            'class' => '',
+            'placeholder' => 'Please Select',
+            'multiple' => 'true',
+            'name' => 'name',
+            'field_type_id' => rand(1, 2),
         ]);
     }
 }

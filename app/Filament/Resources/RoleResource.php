@@ -85,4 +85,9 @@ class RoleResource extends Resource
 //    {
 //        return parent::getEloquentQuery()->where(function ('name', '!=','Admin');
 //    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 }

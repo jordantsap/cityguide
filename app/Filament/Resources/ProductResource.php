@@ -62,14 +62,20 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('slug'),
                 TextColumn::make('user.name'),
                 TextColumn::make('sku'),
-                TextColumn::make('price'),
-                TextColumn::make('description'),
+                TextColumn::make('price')
+                    ->sortable()
+                    ->searchable(),
+//                TextColumn::make('description'),
                 TextColumn::make('quantity'),
-                TextColumn::make('company.name'),
+                TextColumn::make('company.name')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //
@@ -99,5 +105,10 @@ class ProductResource extends Resource
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

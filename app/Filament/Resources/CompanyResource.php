@@ -71,12 +71,18 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('slug'),
                 TextColumn::make('address'),
                 TextColumn::make('phone'),
-                TextColumn::make('category.name'),
-                TextColumn::make('user.name'),
+                TextColumn::make('category.name')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('user.name')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //

@@ -124,4 +124,9 @@ class UserResource extends Resource
             'publish'
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 }

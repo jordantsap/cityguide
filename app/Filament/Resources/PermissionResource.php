@@ -22,6 +22,7 @@ class PermissionResource extends Resource
     protected static ?string $navigationGroup = "User management";
 
     protected static ?int $navigationSort = 3;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -73,5 +74,10 @@ class PermissionResource extends Resource
             'create' => Pages\CreatePermission::route('/create'),
             'edit' => Pages\EditPermission::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }
