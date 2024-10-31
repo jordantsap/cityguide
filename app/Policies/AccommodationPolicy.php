@@ -37,7 +37,7 @@ class AccommodationPolicy
      */
     public function update(User $user, Accommodation $accommodation): bool
     {
-        return $user->hasAnyRole(['Accommodation/Rooms Owner']);
+        return $user->hasRole('Accommodation/Rooms Owner') || $user->id === $accommodation->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class AccommodationPolicy
      */
     public function delete(User $user, Accommodation $accommodation): bool
     {
-        return $user->hasAnyRole(['Accommodation/Rooms Owner']);
+        return $user->hasRole('Accommodation/Rooms Owner') || $user->id === $accommodation->user_id;
     }
 
     /**

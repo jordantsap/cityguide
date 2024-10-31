@@ -65,11 +65,11 @@ class ProductResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('slug'),
                 TextColumn::make('user.name'),
-                TextColumn::make('company.name'),
                 TextColumn::make('sku'),
                 TextColumn::make('price'),
                 TextColumn::make('description'),
                 TextColumn::make('quantity'),
+                TextColumn::make('company.name'),
             ])
             ->filters([
                 //

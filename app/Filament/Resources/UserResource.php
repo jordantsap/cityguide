@@ -80,7 +80,9 @@ class UserResource extends Resource
                 TextColumn::make('permissions.name')
                 ->limit(10),
             ])
-            ->filters([
+//            ->defaultPaginationPageOption(15)
+
+        ->filters([
                 //
             ])
             ->actions([

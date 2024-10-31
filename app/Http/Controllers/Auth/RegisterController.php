@@ -44,7 +44,6 @@ class RegisterController extends Controller
     public function showRegistrationForm(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $roles = Role::whereIn('id', [4, 5,6,7])
-//            ->withTranslation()
             ->get();
         return view('auth.register', compact('roles'));
     }
