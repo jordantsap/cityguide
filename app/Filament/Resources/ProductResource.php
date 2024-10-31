@@ -53,7 +53,8 @@ class ProductResource extends Resource
                 TextInput::make('quantity'),
                 Select::make('company_id')
                     ->label('Company')
-                    ->options(Company::where('user_id','===', Auth::user())->pluck('name', 'id'))
+                    ->options(Company::where('user_id','===', Auth::user())
+                        ->pluck('name', 'id'))
                     ->searchable()
             ]);
     }
