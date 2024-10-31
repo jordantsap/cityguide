@@ -39,7 +39,7 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company): bool
     {
-        return $user->hasAnyRole(['Super-Admin','Company/Products Owner']);//$user->can('delete_role');
+        return $user->hasAnyRole(['Super-Admin']) || $user->id == $company->user_id;
     }
 
     /**

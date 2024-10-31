@@ -17,6 +17,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ProductResource extends Resource
@@ -52,7 +53,7 @@ class ProductResource extends Resource
                 TextInput::make('quantity'),
                 Select::make('company_id')
                     ->label('Company')
-                    ->options(Company::all()->pluck('name', 'id'))
+                    ->options(Company::where('user_id','===', Auth::user())->pluck('name', 'id'))
                     ->searchable()
             ]);
     }
