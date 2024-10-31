@@ -63,7 +63,7 @@ class Register extends BaseRegister
                         $this->getPasswordFormComponent(),
                         $this->getPasswordConfirmationFormComponent(),
                         $this->getRoleFormComponent(),
-//                        $this->getCompanyFormComponent(),
+                        $this->getCompanyFormComponent(),
                     ])
                     ->statePath('data'),
             ),
@@ -79,10 +79,10 @@ class Register extends BaseRegister
             ->default('3')
             ->required();
     }
-//
-//    protected function getCompanyFormComponent(): Component
-//    {
-//
-//        return Select::make('company');
-//    }
+
+    protected function getCompanyFormComponent(): Component
+    {
+
+        return Select::make('company', 'name');
+    }
 }
