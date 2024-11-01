@@ -15,7 +15,7 @@ class CompanyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return isset($user) || $user->hasAnyRole('Super-Admin','Company/Products Owner');
+        return $user->hasAnyRole('Super-Admin','Company/Products Owner');
     }
 
     /**

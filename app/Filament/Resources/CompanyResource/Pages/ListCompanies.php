@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\User;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 class ListCompanies extends ListRecords
@@ -26,7 +27,7 @@ class ListCompanies extends ListRecords
 //        return Company::where('user_id', Auth::id());
 //    }
 
-    public function getTableQuery(): \Illuminate\Database\Eloquent\Builder
+    public function getTableQuery(): Builder
     {
         $user = Auth::user();
 
