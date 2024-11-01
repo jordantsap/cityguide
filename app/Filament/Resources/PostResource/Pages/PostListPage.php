@@ -16,9 +16,9 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class PostListPage extends ListRecords// implements HasForms
+class PostListPage extends ListRecords implements HasForms
 {
-//    use InteractsWithForms;
+    use InteractsWithForms;
 
     protected static ?string $model = Post::class;
 
@@ -37,7 +37,8 @@ class PostListPage extends ListRecords// implements HasForms
     public function getRecords()
     {
         // Fetch all records from the Post model
-        return Post::where('user_id',auth()->user())->paginate();
+        global $user;
+        return Post::where('user_id',auth()->user())->paginate() || $user->hasRole('Super-Admin');
     }
 
     public function table(Table $table): Table
@@ -53,7 +54,8 @@ class PostListPage extends ListRecords// implements HasForms
             ])
             ->filters([])
             ->actions([
-                EditAction::make(),
+                EditAction::make()
+                ->slideOver(),
                 DeleteAction::make()
             ])
             ->bulkActions([]);
