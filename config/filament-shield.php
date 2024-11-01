@@ -39,6 +39,7 @@ return [
             'restore_any',
             'replicate',
             'reorder',
+            'viewAny',
 //            'delete',
 //            'delete_any',
 //            'force_delete',
