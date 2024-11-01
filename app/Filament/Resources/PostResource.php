@@ -123,8 +123,8 @@ class PostResource extends Resource
         return static::getModel()::count();
     }
 
-//    public static function getRouteKeyName(): string
-//    {
-//        return 'slug';
-//    }
+    public static function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }

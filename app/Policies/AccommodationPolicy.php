@@ -21,7 +21,7 @@ class AccommodationPolicy
      */
     public function view(User $user, Accommodation $accommodation): bool
     {
-        return $user->hasAnyRole(['Accommodation/Rooms Owner']);
+        return $user->hasAnyRole(['Super-Admin','Accommodation/Rooms Owner']);
     }
 
     /**
@@ -29,7 +29,7 @@ class AccommodationPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyRole(['Accommodation/Rooms Owner']);
+        return $user->hasAnyRole(['Super-Admin','Accommodation/Rooms Owner']);
     }
 
     /**
@@ -37,7 +37,7 @@ class AccommodationPolicy
      */
     public function update(User $user, Accommodation $accommodation): bool
     {
-        return $user->hasRole('Accommodation/Rooms Owner') || $user->id === $accommodation->user_id;
+        return $user->id === $accommodation->user_id;//$user->hasRole('Accommodation/Rooms Owner');
     }
 
     /**
@@ -45,7 +45,7 @@ class AccommodationPolicy
      */
     public function delete(User $user, Accommodation $accommodation): bool
     {
-        return $user->hasRole('Accommodation/Rooms Owner') || $user->id === $accommodation->user_id;
+        return $user->id === $accommodation->user_id;
     }
 
     /**

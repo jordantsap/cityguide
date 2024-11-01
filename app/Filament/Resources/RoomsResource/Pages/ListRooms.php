@@ -5,6 +5,7 @@ namespace App\Filament\Resources\RoomsResource\Pages;
 use App\Filament\Resources\RoomsResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Support\Facades\Auth;
 
 class ListRooms extends ListRecords
 {
@@ -15,5 +16,18 @@ class ListRooms extends ListRecords
         return [
             Actions\CreateAction::make(),
         ];
+    }
+
+    public function getTableQuery(): ?\Illuminate\Database\Eloquent\Builder
+    {
+        $user = Auth::user();
+
+        // Admin users can see all companies
+        if ($user->hasRole('Super-Admin')) {
+            return parent::getTableQuery();
+        }
+
+        // Non-admin users see only their own records
+        return parent::getTableQuery()->where('user_id', $user->id);
     }
 }
