@@ -15,8 +15,7 @@ class CompanyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole('Super-Admin','Company/Products Owner');
-
+        return isset($user) || $user->hasAnyRole('Super-Admin','Company/Products Owner');
     }
 
     /**
@@ -24,7 +23,7 @@ class CompanyPolicy
      */
     public function view(User $user, Company $company): bool
     {
-        return $user->hasAnyRole('Super-Admin','Company/Products Owner');
+        return $user->hasAnyRole('Super-Admin', 'Company/Products Owner') || $user->id == $company->user_id;
 
     }
 
@@ -41,7 +40,7 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company): bool
     {
-        return $user->hasAnyRole(['Super-Admin']) || $user->id == $company->user_id;
+        return $user->hasAnyRole(['Super-Admin']) || $user->id === $company->user_id;
     }
 
     /**

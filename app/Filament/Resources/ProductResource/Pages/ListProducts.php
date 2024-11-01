@@ -18,12 +18,6 @@ class ListProducts extends ListRecords
         ];
     }
 
-//    public function getTableQuery(): \Illuminate\Database\Eloquent\Builder
-//    {
-//        // Show only the companies associated with the logged-in user
-//        return parent::getTableQuery()->where('user_id', Auth::id());
-//    }
-
     public function getTableQuery(): \Illuminate\Database\Eloquent\Builder
     {
         $user = Auth::user();
