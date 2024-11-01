@@ -34,7 +34,7 @@ class PostListPage extends ListRecords implements HasForms
     }
     private mixed $post;
 
-    public function getRecords()
+    public function getRecords(): bool
     {
         // Fetch all records from the Post model
         global $user;
