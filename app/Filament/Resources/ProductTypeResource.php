@@ -50,6 +50,8 @@ class ProductTypeResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(fn () => ProductType::query()->orderByDesc('created_at'))
+
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('slug'),
