@@ -49,8 +49,8 @@ class CompanyResource extends Resource
                 TextInput::make('slug'),
                 TextInput::make('address'),
                 TextInput::make('phone'),
-                Forms\Components\Select::make('category_id')
-                ->relationship('category', 'name'),
+                Forms\Components\Select::make('company_type_id')
+                ->relationship('companyType', 'name'),
                 Hidden::make('user_id')
                     ->default(auth()->id()),
 //                ->columnSpanFull(),
@@ -78,7 +78,7 @@ class CompanyResource extends Resource
                 TextColumn::make('slug'),
                 TextColumn::make('address'),
                 TextColumn::make('phone'),
-                TextColumn::make('category.name')
+                TextColumn::make('companyType.name')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('user.name')

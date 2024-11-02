@@ -13,7 +13,8 @@ class CompanyType extends Model
 
     protected $guarded = [];
 
-    public function companyTypes(): HasMany
+
+    public function companies(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Company::class);
     }
