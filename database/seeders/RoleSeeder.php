@@ -75,19 +75,19 @@ class RoleSeeder extends Seeder
             'update-events',
             'delete-events',
         ]);
-        $role = Role::create(['name' => 'Group/Events Owner']);
-        $role->givePermissionTo([
-            'group-management',
-            'view-groups',
-            'create-groups',
-            'update-groups',
-            'delete-groups',
-
-            'view-events',
-            'create-events',
-            'update-events',
-            'delete-events',
-        ]);
+//        $role = Role::create(['name' => 'Group/Events Owner']);
+//        $role->givePermissionTo([
+//            'group-management',
+//            'view-groups',
+//            'create-groups',
+//            'update-groups',
+//            'delete-groups',
+//
+//            'view-events',
+//            'create-events',
+//            'update-events',
+//            'delete-events',
+//        ]);
 
         $role = Role::create(['name' => 'Blogger']);
         $role->givePermissionTo(['view-posts', 'create-posts', 'update-posts']);
@@ -95,23 +95,13 @@ class RoleSeeder extends Seeder
         $role = Role::create(['name' => 'Customer']);
         $role->givePermissionTo(['order-management']);
 
-//        $role = Role::create(['name' => 'Group Manager']);
-//        $role->givePermissionTo(['group-management']);
-
-//        $role = Role::create(['name' => 'Product Supplier']);
-//        $role->givePermissionTo(['product-management']);
-
-//        $role = Role::create(['name' => 'Event Host']);
-//        $role->givePermissionTo(['event-management']);
-
-
         $superadmin_role = Role::where('name','Super-Admin')->first();
         $admin_role = Role::where('name', 'Admin')->first();
         $company_management = Role::where('name','Company/Products Owner')->first();
         $accommodation_management = Role::where('name','Accommodation/Rooms Owner')->first();
 
-        $venue_management = Role::where('name','Venue/Event Owner')->first();
-        $group_management = Role::where('name','Group/Event Owner')->first();
+        $venue_manage = Role::where('name','Venue/Event Owner')->first();
+//        $group_management = Role::where('name','Group/Event Owner')->first();
         $blog_management = Role::where('name', 'Blogger')->first();
         $customer_role = Role::where('name','Customer')->first();
 
@@ -167,17 +157,17 @@ class RoleSeeder extends Seeder
         $venue_management->password = bcrypt('123456');
         $venue_management->email_verified_at = now();
         $venue_management->save();
-        $venue_management->roles()->attach($venue_management);
+        $venue_management->roles()->attach($venue_manage);
 
-        $group_manager = new User();
-        $group_manager->name = 'groupManager';
-        $group_manager->username = 'groupManager';
-        $group_manager->fullname = 'venueManager';
-        $group_manager->email = 'group@karvali.local';
-        $group_manager->password = bcrypt('123456');
-        $group_manager->email_verified_at = now();
-        $group_manager->save();
-        $group_manager->roles()->attach($group_management);
+//        $group_manager = new User();
+//        $group_manager->name = 'groupManager';
+//        $group_manager->username = 'groupManager';
+//        $group_manager->fullname = 'venueManager';
+//        $group_manager->email = 'group@karvali.local';
+//        $group_manager->password = bcrypt('123456');
+//        $group_manager->email_verified_at = now();
+//        $group_manager->save();
+//        $group_manager->roles()->attach($group_management);
 
 
         $blogger = new User();
