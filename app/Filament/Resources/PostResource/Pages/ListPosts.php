@@ -18,16 +18,16 @@ class ListPosts extends ListRecords
         ];
     }
 
-//    public function getTableQuery(): ?\Illuminate\Database\Eloquent\Builder
-//    {
-//        $user = Auth::user();
-//
-//        // Admin users can see all companies
-//        if ($user->hasRole('Super-Admin')) {
-//            return parent::getTableQuery();
-//        }
-//
-//        // Non-admin users see only their own records
-//        return parent::getTableQuery()->where('user_id', $user->id);
-//    }
+    public function getTableQuery(): ?\Illuminate\Database\Eloquent\Builder
+    {
+        $user = Auth::user();
+
+        // Admin users can see all companies
+        if ($user->hasRole('Super-Admin')) {
+            return parent::getTableQuery();
+        }
+
+        // Non-admin users see only their own records
+        return parent::getTableQuery()->where('user_id', $user->id);
+    }
 }
