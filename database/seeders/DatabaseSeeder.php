@@ -17,15 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-         \App\Models\User::factory()->create([
-             'name' => 'Admin User',
-             'username' => 'AdminUser',
-             'fullname' => 'AdminUser',
-             'email' => 'admin@admin.com',
-             'password' => Hash::make('123456'),
-         ]);
-
-
         $this->call(FieldSeeder::class);
         $this->call(FieldTypeSeeder::class);
         $this->call(PermissionSeeder::class);
@@ -33,6 +24,15 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
 
 
+        $user = \App\Models\User::factory()->create([
+             'name' => 'Admin User',
+             'username' => 'AdminUser',
+             'fullname' => 'AdminUser',
+             'email' => 'admin@admin.com',
+             'password' => Hash::make('123456'),
+         ]);
+
+        $user->assignRole('Super-Admin');
 
     }
 }

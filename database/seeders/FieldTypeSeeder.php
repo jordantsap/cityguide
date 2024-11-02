@@ -19,5 +19,11 @@ class FieldTypeSeeder extends Seeder
         FieldType::create([
             'name' => 'select',
         ]);
+        FieldType::create([
+            'name' => 'checkbox',
+        ]);
+        FieldType::create([
+            'name' => 'radio',
+        ]);
     }
 }
