@@ -38,7 +38,7 @@ class PostListPage extends ListRecords implements HasForms
     {
         // Fetch all records from the Post model
         global $user;
-        return Post::where('user_id',auth()->user())->paginate() || $user->hasRole('Super-Admin');
+        return Post::where('user_id',auth()->user())->paginate();
     }
 
     public function table(Table $table): Table

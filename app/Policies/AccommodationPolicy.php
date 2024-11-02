@@ -21,7 +21,7 @@ class AccommodationPolicy
      */
     public function view(User $user, Accommodation $accommodation): bool
     {
-        return $user->hasAnyRole(['Super-Admin','Accommodation/Rooms Owner']);
+        return $user->hasAnyRole(['Super-Admin']) || $user->id == $accommodation->user_id;
     }
 
     /**

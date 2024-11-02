@@ -23,7 +23,7 @@ class ListPosts extends ListRecords
         $user = Auth::user();
 
         // Admin users can see all companies
-        if ($user->hasRole('Super-Admin')) {
+        if ($user->hasAnyRole('Super-Admin')) {
             return parent::getTableQuery();
         }
 

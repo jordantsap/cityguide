@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('address');
             $table->string('phone');
-            $table->foreignIdFor(Category::class);
             $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(\App\Models\CompanyType::class);
             $table->json('fields')->nullable();
             $table->timestamps();
         });

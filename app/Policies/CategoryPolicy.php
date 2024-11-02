@@ -47,7 +47,7 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        return $user->hasAnyRole(['Blogger']);
+        return $user->id === $category->user_id;//$user->hasAnyRole(['Blogger']);
     }
 
     /**
