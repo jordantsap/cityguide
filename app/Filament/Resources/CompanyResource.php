@@ -50,7 +50,8 @@ class CompanyResource extends Resource
                 TextInput::make('address'),
                 TextInput::make('phone'),
                 Forms\Components\Select::make('company_type_id')
-                ->relationship('companyType', 'name'),
+                ->relationship('companyType', 'name')
+                ->required(),
                 Hidden::make('user_id')
                     ->default(auth()->id()),
 //                ->columnSpanFull(),

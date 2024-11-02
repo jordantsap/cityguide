@@ -34,6 +34,7 @@ class PermissionResource extends Resource
                 Forms\Components\Select::make('role_id')
                     ->relationship('roles', 'name')
                     ->multiple()
+                    ->required()
                 ->preload(true)
             ]);
     }

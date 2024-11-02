@@ -53,7 +53,8 @@ class PostResource extends Resource
                 RichEditor::make('body'),
                 Select::make('category_id')
                     ->label('Category')
-                    ->relationship('category','name'),
+                    ->relationship('category','name')
+                ->required(),
                 FileUpload::make('thumbnail')
                 ->disk('public')
                 ->directory('thumbnails/posts'),

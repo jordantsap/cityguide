@@ -56,11 +56,14 @@ class ProductResource extends Resource
                 Select::make('company_id')
                     ->label('Company')
                     ->options(Company::where('user_id', Auth::id())->pluck('name', 'id'))
-                    ->searchable(),
+                    ->searchable()
+                    ->required()
+                ->required(),
                 Select::make('product_type_id')
                     ->label('ProductType')
                     ->options(ProductType::all()->pluck('name', 'id'))
                     ->searchable()
+                ->required(),
             ]);
     }
 

@@ -50,6 +50,7 @@ class RoomsResource extends Resource
                     ->label('Accommodation')
                     ->options(Accommodation::all()->pluck('name', 'id'))
                     ->searchable()
+                ->required()
             ]);
     }
 
