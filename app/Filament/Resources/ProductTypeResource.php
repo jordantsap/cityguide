@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CompanyResource\Pages;
-use App\Filament\Resources\CompanyResource\RelationManagers;
-use App\Models\Company;
-use App\Models\Field;
+use App\Filament\Resources\ProductTypeResource\Pages;
+use App\Filament\Resources\ProductTypeResource\RelationManagers;
+use App\Models\ProductType;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -18,21 +16,18 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class CompanyResource extends Resource
+class ProductTypeResource extends Resource
 {
-    protected static ?string $model = Company::class;
+    protected static ?string $model = ProductType::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
 
     protected static ?string $navigationGroup = "Company Management";
 
     protected static ?int $navigationSort = 5;
-
-
-//    protected static bool $shouldSkipAuthorization = true;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -47,24 +42,8 @@ class CompanyResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 TextInput::make('slug'),
-                TextInput::make('address'),
-                TextInput::make('phone'),
-                Forms\Components\Select::make('category_id')
-                ->relationship('category', 'name'),
                 Hidden::make('user_id')
                     ->default(auth()->id()),
-//                ->columnSpanFull(),
-
-                Repeater::make('fields')
-//                    ->relationship()
-                    ->schema([
-                        TextInput::make('name')->required(),
-                        Select::make('field')
-                            ->options(Field::query()->pluck('title','id'))
-                            ->required(),
-                    ])
-                    ->defaultItems(1)
-                    ->columnSpanFull()
             ]);
     }
 
@@ -72,15 +51,8 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->sortable()
-                    ->searchable(),
+                TextColumn::make('name'),
                 TextColumn::make('slug'),
-                TextColumn::make('address'),
-                TextColumn::make('phone'),
-                TextColumn::make('category.name')
-                    ->sortable()
-                    ->searchable(),
                 TextColumn::make('user.name')
                     ->sortable()
                     ->searchable(),
@@ -109,19 +81,13 @@ class CompanyResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCompanies::route('/'),
-            'create' => Pages\CreateCompany::route('/create'),
-            'edit' => Pages\EditCompany::route('/{record}/edit'),
+            'index' => Pages\ListProductTypes::route('/'),
+            'create' => Pages\CreateProductType::route('/create'),
+            'edit' => Pages\EditProductType::route('/{record}/edit'),
         ];
     }
-
-//    public static function getNavigationBadge(): ?string
-//    {
-//        return static::getModel()::count();
-//    }
-
-    public function getRouteKeyName(): string
+    public static function getNavigationBadge(): ?string
     {
-        return 'slug';
+        return static::getModel()::count();
     }
 }

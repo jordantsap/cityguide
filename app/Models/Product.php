@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Product extends Model
@@ -12,9 +13,9 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function productType(): BelongsTo
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(ProductType::class);
     }
 
     public function fields(): HasManyThrough
@@ -22,11 +23,11 @@ class Product extends Model
         return $this->hasManyThrough(Field::class, Category::class);
     }
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function company(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }

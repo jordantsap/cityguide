@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\ProductType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(FieldSeeder::class);
         $this->call(FieldTypeSeeder::class);
+        $this->call(ProductTypeSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(CategorySeeder::class);
