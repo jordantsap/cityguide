@@ -38,7 +38,7 @@ class ProductTypePolicy
      */
     public function update(User $user, ProductType $productType): bool
     {
-        return $user->hasRole(['Super-Admin','Company/Products Owner']) || $user->id ===$productType->user_id;
+        return $user->hasRole(['Super-Admin']) || $user->id ===$productType->user_id;
 
     }
 
@@ -47,7 +47,7 @@ class ProductTypePolicy
      */
     public function delete(User $user, ProductType $productType): bool
     {
-        return $user->hasRole(['Super-Admin','Company/Products Owner']) || $user->id ===$productType->user_id;
+        return $user->hasRole(['Super-Admin']) || $user->id ===$productType->user_id;
     }
 
     /**

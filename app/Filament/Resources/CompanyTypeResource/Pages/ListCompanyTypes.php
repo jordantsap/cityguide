@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\ProductTypeResource\Pages;
+namespace App\Filament\Resources\CompanyTypeResource\Pages;
 
-use App\Filament\Resources\ProductTypeResource;
+use App\Filament\Resources\CompanyTypeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
 
-class ListProductTypes extends ListRecords
+class ListCompanyTypes extends ListRecords
 {
-    protected static string $resource = ProductTypeResource::class;
+    protected static string $resource = CompanyTypeResource::class;
 
     protected function getHeaderActions(): array
     {

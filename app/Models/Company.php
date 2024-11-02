@@ -14,9 +14,9 @@ class Company extends Model
 
     protected $guarded = [];
 
-    public function category():belongsTo
+    public function companyType():belongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(CompanyType::class);
     }
 
     public function fields(): HasManyThrough
