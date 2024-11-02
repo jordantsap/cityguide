@@ -31,7 +31,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyRole(['Super-Admin','panel_user']);
+        return $user->hasAnyRole(['Super-Admin','panel_user','Blogger']);
     }
 
     /**
@@ -39,7 +39,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        return $user->hasAnyRole(['Super-Admin','panel_user']);
+        return $user->id === $category->user_id;
     }
 
     /**
@@ -71,7 +71,7 @@ class CategoryPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->hasAnyRole(['Super-Admin','panel_user']);
+        return $user->hasAnyRole(['Super-Admin','panel_user','Blogger']);
     }
 
     /**
@@ -79,7 +79,7 @@ class CategoryPolicy
      */
     public function restore(User $user, Category $category): bool
     {
-        return $user->hasAnyRole(['Super-Admin','panel_user']);
+        return $user->hasAnyRole(['Super-Admin','panel_user','Blogger']);
     }
 
     /**
