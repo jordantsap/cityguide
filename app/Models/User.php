@@ -69,6 +69,10 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Post::class);
     }
+    public function accommodations(): HasMany
+    {
+        return $this->hasMany(Accommodation::class);
+    }
 
     public function products(): HasMany
     {
@@ -79,13 +83,17 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Company::class);
     }
-    public function accommodations(): HasMany
-    {
-        return $this->hasMany(Accommodation::class);
-    }
 
     public function rooms(): HasMany
     {
         return $this->hasMany(Room::class);
+    }
+    public function productTypes(): HasMany
+    {
+        return $this->hasMany(ProductType::class);
+    }
+    public function companyTypes(): HasMany
+    {
+        return $this->hasMany(CompanyType::class);
     }
 }

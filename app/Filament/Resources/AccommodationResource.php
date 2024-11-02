@@ -5,8 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AccommodationResource\Pages;
 use App\Filament\Resources\AccommodationResource\RelationManagers;
 use App\Models\Accommodation;
+use App\Models\AccommodationType;
+use App\Models\ProductType;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -43,6 +46,11 @@ class AccommodationResource extends Resource
                 TextInput::make('slug'),
                 Hidden::make('user_id')
                     ->default(auth()->id()),
+                Select::make('accommodation_type_id')
+                    ->label('AccommodationType')
+                    ->options(AccommodationType::all()->pluck('name', 'id'))
+                    ->searchable()
+
             ]);
     }
 
@@ -53,6 +61,9 @@ class AccommodationResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('slug'),
                 TextColumn::make('user.name'),
+                TextColumn::make('accommodationType.name')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //
