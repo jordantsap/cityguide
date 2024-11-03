@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('class')->nullable();
             $table->foreignIdFor(FieldType::class);
+//            $table->foreignIdFor(\App\Models\Category::class);
 
             $table->string('placeholder')->nullable();
             $table->string('multiple')->nullable();
