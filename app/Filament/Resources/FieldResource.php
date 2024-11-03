@@ -47,10 +47,15 @@ class FieldResource extends Resource
                     }),
                 Select::make('field_type_id')
                     ->label('Field Type')
-//                    ->options(FieldType::all()->pluck('title', 'id'))
                     ->relationship('fieldType', 'name')
+                    ->required()
                     ->searchable()
                     ->preload(),
+                Select::make('category_id')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('categories', 'name')
+                ->required(),
                 TextInput::make('name'),
                 TextInput::make('placeholder'),
                 Select::make('multiple')
@@ -68,6 +73,7 @@ class FieldResource extends Resource
             ->columns([
                 TextColumn::make('title')->limit(20),
                 TextColumn::make('fieldType.name')->limit(20),
+                TextColumn::make('categories.name')->limit(20),
                 TextColumn::make('name'),
                 TextColumn::make('placeholder'),
                 TextColumn::make('multiple'),

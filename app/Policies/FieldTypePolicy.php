@@ -13,7 +13,7 @@ class FieldTypePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('Super-Admin');
+        return $user->hasAnyRole('Super-Admin', 'panel_user');
     }
 
     /**
@@ -21,7 +21,7 @@ class FieldTypePolicy
      */
     public function view(User $user, FieldType $fieldType): bool
     {
-        return true;
+        return $user->id === $fieldType->user_id;
     }
 
     /**

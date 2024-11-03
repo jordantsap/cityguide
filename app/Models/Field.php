@@ -13,7 +13,7 @@ class Field extends Model
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_field');
     }
 
     public function fieldType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
