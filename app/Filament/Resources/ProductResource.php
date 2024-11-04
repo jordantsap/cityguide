@@ -59,18 +59,32 @@ class ProductResource extends Resource
                     ->options(Company::where('user_id', Auth::id())->pluck('name', 'id'))
                     ->searchable()
                     ->required(),
-                Select::make('product_type_id')
-                    ->label('ProductType')
+                Forms\Components\Select::make('product_type_id')
+                    ->label('Product Type')
                     ->options(ProductType::all()->pluck('name', 'id'))
-                    ->live()
+                    ->live() // Makes this component reactive to trigger dependent fields
                     ->searchable()
-                    ->required(),
+                    ->required()
+                    ->reactive(), // Ensure this component triggers reactivity on change
+
                 Forms\Components\Select::make('variant_id')
                     ->label('Variants')
-                    ->multiple() // Allow multiple variants to be selected
-                    ->relationship('variants','name')
+                    ->multiple() // Allow selecting multiple variants
+                    ->relationship('variants', 'name') // Define the many-to-many relationship to the Variant model
                     ->preload()
-                    ->searchable(), // Makes it searchable,
+                    ->searchable()
+                    ->reactive() // Ensures reactivity to dynamically load options
+                    ->options(function (callable $get) {
+                        // Get the selected product_type_id value
+                        $productTypeId = $get('product_type_id');
+
+                        // If a product type is selected, filter the variants by the selected ProductType
+                        return $productTypeId
+                            ? Variant::whereHas('productTypes', function ($query) use ($productTypeId) {
+                                $query->where('product_types.id', $productTypeId); // Specify 'product_types.id' to avoid ambiguity
+                            })->pluck('name', 'id')
+                            : []; // Return an empty array if no product type is selected
+                    }),
             ]);
     }
 
@@ -98,7 +112,7 @@ class ProductResource extends Resource
                 TextColumn::make('variants.name')
                     ->sortable()
                     ->searchable()
-                ->limit(10),
+                    ->limit(10),
             ])
             ->filters([
                 //
