@@ -64,8 +64,10 @@ class ProductResource extends Resource
                     ->options(ProductType::all()->pluck('name', 'id'))
                     ->live() // Makes this component reactive to trigger dependent fields
                     ->searchable()
-                    ->required()
-                    ->reactive(), // Ensure this component triggers reactivity on change
+                    ->afterStateUpdated(function (string $operation, string $state,Forms\Set $set) {
+                        $set('variant_id',null);
+                    })
+                    ->required(), // Ensure this component triggers reactivity on change
 
                 Forms\Components\Select::make('variant_id')
                     ->label('Variants')
