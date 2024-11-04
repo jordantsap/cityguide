@@ -76,7 +76,8 @@ class CompanyResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('slug'),
+                TextColumn::make('slug')
+                ->toggleable(),
                 TextColumn::make('address'),
                 TextColumn::make('phone'),
                 TextColumn::make('companyType.name')
