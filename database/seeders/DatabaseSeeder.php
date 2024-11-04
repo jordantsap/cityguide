@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AccommodationTypeSeeder::class);
         $this->call(RoomTypeSeeder::class);
         $this->call(CategorySeeder::class);
+        $this->call(VariantSeeder::class);
 
 
         $user = \App\Models\User::factory()->create([

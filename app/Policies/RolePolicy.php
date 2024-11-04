@@ -15,7 +15,7 @@ class RolePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole(['Super-Admin','Super-Admin']);//$user->can('view_any_role');
+        return $user->hasAnyRole(['Super-Admin']);//$user->can('view_any_role');
     }
 
     /**
