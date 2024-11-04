@@ -59,6 +59,7 @@ class ProductResource extends Resource
                     ->options(Company::where('user_id', Auth::id())->pluck('name', 'id'))
                     ->searchable()
                     ->required(),
+
                 Forms\Components\Select::make('product_type_id')
                     ->label('Product Type')
                     ->options(ProductType::all()->pluck('name', 'id'))
