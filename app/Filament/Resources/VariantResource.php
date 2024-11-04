@@ -2,32 +2,26 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\RelationManagers\FieldsRelationManager;
-use App\Filament\Resources\FieldResource\Pages;
-use App\Filament\Resources\FieldResource\RelationManagers;
-use App\Models\Field;
-use App\Models\FieldType;
-use App\Models\User;
+use App\Filament\Resources\VariantResource\Pages;
+use App\Filament\Resources\VariantResource\RelationManagers;
+use App\Models\ProductType;
+use App\Models\Variant;
 use Filament\Forms;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\SelectColumn;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
-class FieldResource extends Resource
+class VariantResource extends Resource
 {
-    protected static ?string $model = Field::class;
-
-//    protected static bool $shouldSkipAuthorization = true;
+    protected static ?string $model = Variant::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
 
     protected static ?string $navigationGroup = "System management";
 
@@ -37,7 +31,7 @@ class FieldResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')
+                TextInput::make('name')
                     ->live(onBlur: true)
                     ->afterStateUpdated(function (string $operation, string $state,Forms\Set $set) {
                         if ($operation === 'edit') {
@@ -45,38 +39,24 @@ class FieldResource extends Resource
                         }
                         $set('slug', Str::slug($state));
                     }),
-                Select::make('field_type_id')
-                    ->label('Field Type')
-                    ->relationship('fieldType', 'name')
-                    ->required()
-                    ->searchable()
-                    ->preload(),
-                Select::make('category_id')
-                    ->multiple()
+                TextInput::make('slug'),
+                Forms\Components\Select::make('product_type_id')
+                    ->label('Product Type')
+                    ->relationship('productTypes','name')
+                    ->live()
                     ->preload()
-                    ->relationship('categories', 'name')
+                    ->multiple()
                     ->required(),
-                TextInput::make('name'),
-                TextInput::make('placeholder'),
-                Select::make('multiple')
-                    ->options([
-                        'yes' => 'yes',
-                        'no' => 'no',
-                    ])
-            ])
-            ->columns(3);
+            ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('title')->limit(20),
-                TextColumn::make('fieldType.name')->limit(20),
-                TextColumn::make('categories.name')->limit(20),
-                TextColumn::make('name'),
-                TextColumn::make('placeholder'),
-                TextColumn::make('multiple'),
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\TextColumn::make('productTypes.name'),
             ])
             ->filters([
                 //
@@ -95,18 +75,19 @@ class FieldResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\CategoriesRelationManager::class
+            //
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFields::route('/'),
-            'create' => Pages\CreateField::route('/create'),
-            'edit' => Pages\EditField::route('/{record}/edit'),
+            'index' => Pages\ListVariants::route('/'),
+            'create' => Pages\CreateVariant::route('/create'),
+            'edit' => Pages\EditVariant::route('/{record}/edit'),
         ];
     }
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

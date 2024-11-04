@@ -85,6 +85,7 @@ class CompanyResource extends Resource
                 TextColumn::make('user.name')
                     ->sortable()
                     ->searchable(),
+//                TextColumn::make('fields.title')
             ])
             ->filters([
                 //

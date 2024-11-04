@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Company;
 use App\Models\Product;
 use App\Models\ProductType;
+use App\Models\Variant;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
@@ -61,8 +62,15 @@ class ProductResource extends Resource
                 Select::make('product_type_id')
                     ->label('ProductType')
                     ->options(ProductType::all()->pluck('name', 'id'))
+                    ->live()
                     ->searchable()
-                ->required(),
+                    ->required(),
+                Forms\Components\Select::make('variant_id')
+                    ->label('Variants')
+                    ->multiple() // Allow multiple variants to be selected
+                    ->relationship('variants','name')
+                    ->preload()
+                    ->searchable(), // Makes it searchable,
             ]);
     }
 
@@ -87,6 +95,10 @@ class ProductResource extends Resource
                 TextColumn::make('productType.name')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('variants.name')
+                    ->sortable()
+                    ->searchable()
+                ->limit(10),
             ])
             ->filters([
                 //
