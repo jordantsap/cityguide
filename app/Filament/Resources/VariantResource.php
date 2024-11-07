@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\VariantResource\Pages;
 use App\Filament\Resources\VariantResource\RelationManagers;
+use App\Models\Category;
 use App\Models\ProductType;
 use App\Models\Variant;
 use Filament\Forms;
@@ -44,11 +45,15 @@ class VariantResource extends Resource
                 TextInput::make('slug'),
                 Select::make('product_type_ids')
                     ->label('Product Types')
-                    ->preload()
                     ->relationship('productTypes', 'name')
-                    ->multiple()  // Allow multiple selections
-                    ->required()
-                    ->placeholder('Select Product Types'),
+                    ->preload()
+                    ->multiple()
+                    ->options(
+                        ProductType::all()->mapWithKeys(function ($category) {
+                            // Return translatable names for each category as JSON.
+                            return [$category->id => $category->getTranslation('name', app()->getLocale())];
+                        })
+                    ),
                 Forms\Components\Hidden::make('user_id')
                     ->default(auth()->id())
             ]);

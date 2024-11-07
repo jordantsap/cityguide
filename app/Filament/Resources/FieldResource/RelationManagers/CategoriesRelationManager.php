@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use Filament\Resources\RelationManagers\Concerns\Translatable;
 
-
 class CategoriesRelationManager extends RelationManager
 {
     use Translatable;

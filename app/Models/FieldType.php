@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FieldType extends Model
 {
     use HasFactory;
+
     protected $fillable = ['name','slug','user_id'];
 
     public function fields(): \Illuminate\Database\Eloquent\Relations\HasMany

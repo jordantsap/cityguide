@@ -6,6 +6,7 @@ use App\Filament\Resources\AccommodationResource\Pages;
 use App\Filament\Resources\AccommodationResource\RelationManagers;
 use App\Models\Accommodation;
 use App\Models\AccommodationType;
+use App\Models\Category;
 use App\Models\ProductType;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
@@ -51,9 +52,16 @@ class AccommodationResource extends Resource
                     ->default(auth()->id()),
                 Select::make('accommodation_type_id')
                     ->label('AccommodationType')
-                    ->options(AccommodationType::all()->pluck('name', 'id'))
-                    ->searchable()
+                    ->relationship('accommodationType','name')
+//                    ->searchable()
                     ->required()
+                    ->options(
+                        AccommodationType::all()->mapWithKeys(function ($category) {
+                            // Return translatable names for each category as JSON.
+                            return [$category->id => $category->getTranslation('name', app()->getLocale())];
+                        })),
+//                    ->translatable(),
+
             ]);
     }
 

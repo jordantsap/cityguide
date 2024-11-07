@@ -52,12 +52,17 @@ class FieldResource extends Resource
                     ->required()
                     ->searchable()
                     ->preload(),
-                Select::make('category_id')
-                    ->label('Category')
+                Select::make('categories')
+                    ->label('Categories')
                     ->multiple()
-                    ->preload()
                     ->relationship('categories', 'name')
-                    ->required(),
+                    ->preload()
+                    ->options(
+                        Category::all()->mapWithKeys(function ($category) {
+                            // Return translatable names for each category as JSON.
+                            return [$category->id => $category->getTranslation('name', app()->getLocale())];
+                        })
+                    ),
                 TextInput::make('name'),
                 TextInput::make('type'),
                 Select::make('required')
