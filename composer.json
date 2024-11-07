@@ -15,7 +15,6 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
-        "outerweb/filament-translatable-fields": "^2.0",
         "spatie/laravel-permission": "^6.9",
         "spatie/laravel-translatable": "^6.8"
     },

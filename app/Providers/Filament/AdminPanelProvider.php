@@ -62,12 +62,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
-                FilamentTranslatableFieldsPlugin::make()
-                    ->supportedLocales([
-                        'en' => 'English',
-                        'el' => 'Greek',
-                    ]),
-
             ])
             ->plugin(
                 SpatieLaravelTranslatablePlugin::make()
