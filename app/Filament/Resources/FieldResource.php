@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CategoryResource\RelationManagers\FieldsRelationManager;
 use App\Filament\Resources\FieldResource\Pages;
 use App\Filament\Resources\FieldResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Field;
 use App\Models\FieldType;
 use App\Models\User;
@@ -47,22 +48,31 @@ class FieldResource extends Resource
                     }),
                 Select::make('field_type_id')
                     ->label('Field Type')
-                    ->relationship('fieldType', 'name')
+                    ->options(FieldType::all()->pluck('name', 'id'))
                     ->required()
                     ->searchable()
                     ->preload(),
                 Select::make('category_id')
+                    ->label('Category')
                     ->multiple()
                     ->preload()
                     ->relationship('categories', 'name')
                     ->required(),
                 TextInput::make('name'),
+                TextInput::make('type'),
+                Select::make('required')
+                    ->options([
+                        'yes' => 'yes',
+                        'no' => 'no',
+                    ]),
+                TextInput::make('class'),
                 TextInput::make('placeholder'),
                 Select::make('multiple')
                     ->options([
                         'yes' => 'yes',
                         'no' => 'no',
                     ])
+                    ->default('no')
             ])
             ->columns(3);
     }
@@ -75,6 +85,10 @@ class FieldResource extends Resource
                 TextColumn::make('fieldType.name')->limit(20),
                 TextColumn::make('categories.name')->limit(20),
                 TextColumn::make('name'),
+                TextColumn::make('type')
+                ->limit(10),
+                TextColumn::make('class')
+                ->limit(10),
                 TextColumn::make('placeholder'),
                 TextColumn::make('multiple'),
             ])

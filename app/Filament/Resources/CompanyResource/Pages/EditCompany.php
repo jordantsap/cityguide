@@ -10,10 +10,14 @@ class EditCompany extends EditRecord
 {
     protected static string $resource = CompanyResource::class;
 
+    use EditRecord\Concerns\Translatable;
+
     protected function getHeaderActions(): array
     {
         return [
             Actions\DeleteAction::make(),
+            Actions\LocaleSwitcher::make(),
+
         ];
     }
     protected function getRedirectUrl(): string

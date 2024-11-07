@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateFieldType extends CreateRecord
 {
     protected static string $resource = FieldTypeResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

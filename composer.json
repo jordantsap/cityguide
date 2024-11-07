@@ -9,12 +9,14 @@
         "bezhansalleh/filament-shield": "^3.2",
         "doctrine/dbal": "^3.9",
         "filament/filament": "^3.2",
+        "filament/spatie-laravel-translatable-plugin": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
-        "spatie/laravel-permission": "^6.9"
+        "spatie/laravel-permission": "^6.9",
+        "spatie/laravel-translatable": "^6.8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

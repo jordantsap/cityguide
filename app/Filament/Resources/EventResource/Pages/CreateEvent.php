@@ -10,6 +10,15 @@ class CreateEvent extends CreateRecord
 {
     protected static string $resource = EventResource::class;
 
+    use CreateRecord\Concerns\Translatable;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\LocaleSwitcher::make(),
+            // ...
+        ];
+    }
 
     protected function getRedirectUrl(): string
     {

@@ -46,7 +46,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(): Factory|\Illuminate\Foundation\Application|View|Application
     {
-        $roles = Role::whereIn('id', [4, 5,6])
+        $roles = Role::whereIn('id', [4, 5,6,7])
             ->get();
         return view('auth.register', compact('roles'));
     }

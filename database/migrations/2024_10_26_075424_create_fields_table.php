@@ -14,17 +14,17 @@ return new class extends Migration
     {
         Schema::create('fields', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->string('type')->nullable();
-            $table->string('class')->nullable();
+            $table->string('title');
+            $table->string('type');
+            $table->string('class');
             $table->foreignIdFor(FieldType::class);
-//            $table->foreignIdFor(\App\Models\Category::class);
+//            $table->foreignIdFor(\App\Models\Category::class)->nullable();
 
-            $table->string('placeholder')->nullable();
-            $table->string('multiple')->nullable();
-            $table->string('required')->nullable();
+            $table->string('placeholder');
+            $table->string('multiple');
+            $table->string('required');
 
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }

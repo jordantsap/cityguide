@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
+            $table->json('name');
+            $table->json('slug');
             $table->foreignIdFor(\App\Models\User::class);
             $table->foreignIdFor(\App\Models\Venue::class);
             $table->timestamps();

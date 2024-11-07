@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CompanyResource\Pages;
 use App\Filament\Resources\CompanyResource\RelationManagers;
 use App\Models\Company;
+use App\Models\CompanyType;
 use App\Models\Field;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
@@ -12,6 +13,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -23,6 +25,8 @@ use Illuminate\Support\Str;
 
 class CompanyResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = Company::class;
 
     protected static ?string $navigationGroup = "Company Management";
@@ -50,7 +54,7 @@ class CompanyResource extends Resource
                 TextInput::make('address'),
                 TextInput::make('phone'),
                 Forms\Components\Select::make('company_type_id')
-                ->relationship('companyType', 'name')
+                ->options(CompanyType::all()->pluck('name', 'id'))
                 ->required(),
                 Hidden::make('user_id')
                     ->default(auth()->id()),
@@ -126,5 +130,10 @@ class CompanyResource extends Resource
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public static function getTranslatableLocales(): array
+    {
+        return ['en', 'el'];
     }
 }

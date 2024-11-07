@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -22,6 +23,7 @@ class CompanyTypeResource extends Resource
 {
     protected static ?string $model = CompanyType::class;
 
+    use Translatable;
 
 
     protected static ?string $navigationGroup = "Company Management";
@@ -93,5 +95,10 @@ class CompanyTypeResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
+    }
+
+    public static function getTranslatableLocales(): array
+    {
+        return ['en', 'el'];
     }
 }

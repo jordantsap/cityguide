@@ -5,6 +5,7 @@ namespace App\Filament\Resources\CategoryResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FieldsRelationManager extends RelationManager
 {
+    use Translatable;
+
     protected static string $relationship = 'Fields';
 
     public function form(Form $form): Form

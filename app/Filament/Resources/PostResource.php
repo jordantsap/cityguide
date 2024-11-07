@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 //use AnourValar\EloquentSerialize\Tests\Models\Post;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Post;
 use Filament\Actions\ViewAction;
 use Filament\Forms;
@@ -16,6 +17,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
@@ -28,6 +30,8 @@ use Illuminate\Support\Str;
 
 class PostResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationGroup = "Blog";
@@ -35,6 +39,11 @@ class PostResource extends Resource
     protected static ?int $navigationSort = 5;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function getTranslatableLocales(): array
+    {
+        return ['en', 'el'];
+    }
 
     public static function form(Form $form): Form
     {
@@ -53,8 +62,8 @@ class PostResource extends Resource
                 RichEditor::make('body'),
                 Select::make('category_id')
                     ->label('Category')
-                    ->relationship('category','name')
-                ->required(),
+                    ->options(Category::all()->pluck('name', 'id'))
+                    ->required(),
                 FileUpload::make('thumbnail')
                 ->disk('public')
                 ->directory('thumbnails/posts'),
@@ -84,7 +93,8 @@ class PostResource extends Resource
                     ->toggleable(),
                 ImageColumn::make('thumbnail')
                     ->searchable()
-                    ->toggleable(),
+                    ->toggleable()
+                    ->disk('public'),
                 TextColumn::make('user.name')
                     ->searchable()
                     ->toggleable(),
@@ -124,8 +134,4 @@ class PostResource extends Resource
 //        return static::getModel()::count();
 //    }
 
-    public static function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
 }

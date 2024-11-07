@@ -13,17 +13,28 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Translatable\HasTranslations;
 
 class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
     use HasPanelShield;
+    use HasTranslations;
 
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return $this->hasRole('panel_user');
-    }
+    public array $translatable = [
+        'name',
+//        'email',
+//        'password',
+        'username',
+        'fullname',
+        'username',
+    ];
+
+//    public function canAccessPanel(Panel $panel): bool
+//    {
+//        return $this->hasRole('panel_user');
+//    }
 
     /**
      * The attributes that are mass assignable.
@@ -82,6 +93,10 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Product::class);
     }
+    public function variants(): HasMany
+    {
+        return $this->hasMany(Variant::class);
+    }
 
     public function companies(): HasMany
     {
@@ -99,5 +114,13 @@ class User extends Authenticatable implements FilamentUser
     public function companyTypes(): HasMany
     {
         return $this->hasMany(CompanyType::class);
+    }
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+    public function fieldTypes(): HasMany
+    {
+        return $this->hasMany(FieldType::class);
     }
 }

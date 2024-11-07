@@ -29,7 +29,7 @@ class VariantPolicy
      */
     public function create(User $user): bool
     {
-        return true;//$user->hasAnyRole(['Super-Admin']);
+        return $user->hasAnyRole(['Super-Admin']);
     }
 
     /**
@@ -37,7 +37,7 @@ class VariantPolicy
      */
     public function update(User $user, Variant $variant): bool
     {
-        return true;//$user->hasAnyRole(['Super-Admin'])|| $user->id == $variant;
+        return $user->hasAnyRole(['Super-Admin']);
     }
 
     /**
@@ -45,7 +45,7 @@ class VariantPolicy
      */
     public function delete(User $user, Variant $variant): bool
     {
-        return true;//
+        return $user->hasAnyRole(['Super-Admin']);
     }
 
     /**
@@ -53,7 +53,7 @@ class VariantPolicy
      */
     public function restore(User $user, Variant $variant): bool
     {
-        //
+        return $user->hasAnyRole(['Super-Admin']);
     }
 
     /**
@@ -61,6 +61,6 @@ class VariantPolicy
      */
     public function forceDelete(User $user, Variant $variant): bool
     {
-        //
+        return $user->hasAnyRole(['Super-Admin']);
     }
 }

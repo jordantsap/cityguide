@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Spatie\Translatable\HasTranslations;
 
 class Company extends Model
 {
     use HasFactory;
+    use HasTranslations;
 
-    protected $guarded = [];
+    public array $translatable = ['name','slug','address'];
+
+    protected $fillable = ['name','slug','address','phone','user_id','company_type_id'];
 
     public function companyType():belongsTo
     {
@@ -24,14 +28,17 @@ class Company extends Model
         return $this->hasManyThrough(Field::class, Category::class);
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
+//    public function getRouteKeyName(): string
+//    {
+//        return 'slug';
+//    }
 
-    protected $casts = [
-      'fields'=>'json'
-    ];
+//    protected $casts = [
+//        'fields'=>'json',
+//        'name'=>'array',
+//        'slug'=>'array',
+//        'company_type_id'=>'array',
+//    ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
