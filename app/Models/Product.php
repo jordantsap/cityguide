@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Spatie\Translatable\HasTranslations;
 
 class Product extends Model
 {
     use HasFactory;
+    use HasTranslations;
 
-    protected $guarded = [];
+    public array $translatable = ['name','slug','description'];
+
+    protected $fillable = ['name','slug','description','user_id','company_id','product_type_id','sku','price','quantity'];
 
     public function productType(): BelongsTo
     {
@@ -37,4 +41,8 @@ class Product extends Model
     {
         return $this->belongsToMany(Variant::class,'product_variant');
     }
+
+//    protected $casts = [
+//        'product_type_id' => 'array',
+//    ];
 }

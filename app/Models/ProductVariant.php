@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class ProductVariant extends Pivot
 {
     use HasFactory;
+
+    protected $fillable = ['product_id','variant_id'];
 }

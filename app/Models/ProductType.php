@@ -4,14 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Translatable\HasTranslations;
 
 class ProductType extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    use HasTranslations;
+
+    protected $fillable = ['name','slug','user_id'];
+
+    public array $translatable = ['name','slug'];
 
     public function products(): HasMany
     {
@@ -19,10 +25,10 @@ class ProductType extends Model
     }
     public function variants(): BelongsToMany
     {
-        return $this->belongsToMany(Variant::class,'product_type_variant');
+        return $this->belongsToMany(Variant::class, 'product_type_variant');
     }
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

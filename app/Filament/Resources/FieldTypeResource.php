@@ -6,6 +6,7 @@ use App\Filament\Resources\FieldTypeResource\Pages;
 use App\Filament\Resources\FieldTypeResource\RelationManagers;
 use App\Models\FieldType;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,6 +15,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class FieldTypeResource extends Resource
 {
@@ -32,6 +34,16 @@ class FieldTypeResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, string $state,Forms\Set $set) {
+                        if ($operation === 'edit') {
+                            return;
+                        }
+                        $set('slug', Str::slug($state));
+                    }),
+                TextInput::make('slug'),
+                Hidden::make('user_id')
+                    ->default(auth()->id()),
             ]);
     }
 
@@ -39,13 +51,16 @@ class FieldTypeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('name'),
+                TextColumn::make('slug'),
+                TextColumn::make('user.name'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

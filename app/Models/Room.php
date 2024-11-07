@@ -4,12 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Room extends Model
 {
     use HasFactory;
+    use HasTranslations;
 
-    protected $guarded = [];
+    public array $translatable = ['name','slug'];
+
+    protected $fillable = ['name','slug','user_id','accommodation_id'];
 
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

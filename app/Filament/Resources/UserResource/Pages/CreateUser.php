@@ -9,6 +9,15 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateUser extends CreateRecord
 {
     protected static string $resource = UserResource::class;
+    use CreateRecord\Concerns\Translatable;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\LocaleSwitcher::make(),
+            // ...
+        ];
+    }
 
     protected function getRedirectUrl(): string
     {

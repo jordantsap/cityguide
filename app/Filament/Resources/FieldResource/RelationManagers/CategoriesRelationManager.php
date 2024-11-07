@@ -11,9 +11,12 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Filament\Resources\RelationManagers\Concerns\Translatable;
 
 class CategoriesRelationManager extends RelationManager
 {
+    use Translatable;
+
     protected static string $relationship = 'categories';
 
     public function form(Form $form): Form

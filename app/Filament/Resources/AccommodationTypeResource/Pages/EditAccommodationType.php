@@ -10,10 +10,14 @@ class EditAccommodationType extends EditRecord
 {
     protected static string $resource = AccommodationTypeResource::class;
 
+    use EditRecord\Concerns\Translatable;
+
     protected function getHeaderActions(): array
     {
         return [
             Actions\DeleteAction::make(),
+            Actions\LocaleSwitcher::make(),
+
         ];
     }
 

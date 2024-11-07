@@ -9,11 +9,13 @@ use Filament\Resources\Pages\EditRecord;
 class EditEvent extends EditRecord
 {
     protected static string $resource = EventResource::class;
+    use EditRecord\Concerns\Translatable;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\LocaleSwitcher::make(),
+            // ...
         ];
     }
 

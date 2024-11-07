@@ -15,11 +15,11 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('thumbnail')->nullable();
-            $table->foreignIdFor(\App\Models\User::class)->constrained();
-            $table->string('title');
-            $table->string('slug');
-            $table->text('body');
-            $table->foreignIdFor(Category::class);
+            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained();
+            $table->json('title');
+            $table->json('slug');
+            $table->json('body');
+            $table->foreignIdFor(Category::class)->nullable();
             $table->timestamps();
         });
     }

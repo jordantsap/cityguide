@@ -39,7 +39,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        return $user->id === $category->user_id;
+        return $user->hasAnyRole(['Super-Admin']) || $user->id === $category->user_id;
     }
 
     /**
@@ -47,7 +47,7 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        return $user->id === $category->user_id;//$user->hasAnyRole(['Blogger']);
+        return $user->hasAnyRole(['Super-Admin']) || $user->id === $category->user_id;
     }
 
     /**

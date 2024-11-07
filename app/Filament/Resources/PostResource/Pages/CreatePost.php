@@ -10,10 +10,19 @@ class CreatePost extends CreateRecord
 {
     protected static string $resource = PostResource::class;
 
+    use CreateRecord\Concerns\Translatable;
 
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\LocaleSwitcher::make(),
+            // ...
+        ];
     }
 
 }

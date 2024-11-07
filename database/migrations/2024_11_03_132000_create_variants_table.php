@@ -16,7 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->foreignIdFor(ProductType::class)->nullable();
+            $table->foreignIdFor(\App\Models\User::class)->nullable();
+//            $table->foreignIdFor(\App\Models\ProductType::class)->nullable();
             $table->timestamps();
         });
     }

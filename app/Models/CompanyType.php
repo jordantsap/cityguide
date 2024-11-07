@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Translatable\HasTranslations;
 
 class CompanyType extends Model
 {
     use HasFactory;
+    use HasTranslations;
 
-    protected $guarded = [];
+    public array $translatable = ['name','slug'];
+
+    protected $fillable = ['name','slug','user_id'];
 
 
     public function companies(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -24,4 +28,8 @@ class CompanyType extends Model
         return $this->belongsTo(User::class);
     }
 
+    protected $casts = [
+            'name'=>'array',
+            'slug'=>'array',
+        ];
 }

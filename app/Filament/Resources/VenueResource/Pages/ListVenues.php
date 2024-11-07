@@ -9,12 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class ListVenues extends ListRecords
 {
+    use ListRecords\Concerns\Translatable;
+
     protected static string $resource = VenueResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             Actions\CreateAction::make(),
+            Actions\LocaleSwitcher::make(),
         ];
     }
 

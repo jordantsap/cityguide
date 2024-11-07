@@ -4,19 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Translatable\HasTranslations;
 
 class Post extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    use HasTranslations;
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public array $translatable = ['title','slug','body'];
+
+    public $fillable = ['title','slug','body','user_id','category_id','thumbnail'];
+
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -32,8 +38,12 @@ class Post extends Model
         });
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
+    protected $casts = [
+        'thumbnail' => 'array',
+    ];
+
+//    public function getRouteKeyName(): string
+//    {
+//        return 'slug';
+//    }
 }

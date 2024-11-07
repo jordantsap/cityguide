@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
@@ -23,6 +24,8 @@ use Illuminate\Support\Str;
 
 class UserResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = User::class;
 
 //    protected static bool $shouldSkipAuthorization = true;

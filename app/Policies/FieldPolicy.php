@@ -31,7 +31,7 @@ class FieldPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyRole('Super-Admin', 'panel_user');
+        return $user->hasAnyRole(['Super-Admin']);
     }
 
     /**
@@ -39,7 +39,7 @@ class FieldPolicy
      */
     public function update(User $user, Field $field): bool
     {
-        return $user->hasAnyRole('Super-Admin', 'panel_user');
+        return $user->hasAnyRole(['Super-Admin']);
     }
 
     /**
@@ -47,7 +47,7 @@ class FieldPolicy
      */
     public function delete(User $user, Field $field): bool
     {
-        return $user->hasAnyRole('Super-Admin', 'panel_user');
+        return $user->hasAnyRole(['Super-Admin']);
     }
 
     /**

@@ -14,21 +14,23 @@ class FieldSeeder extends Seeder
     public function run(): void
     {
         Field::create([
-            'title' => 'input',
+            'title' => 'select',
             'type' => 'text',
-            'class' => '',
-            'placeholder' => 'politics',
-            'multiple' => 'false',
+            'class' => 'form-control',
+            'placeholder' => 'Please Select',
+            'multiple' => 'true',
             'name' => 'name',
+            'required' => 'true',
             'field_type_id' => rand(1, 2),
         ]);
         Field::create([
             'title' => 'select',
-            'type' => '',
-            'class' => '',
+            'type' => 'text',
+            'class' => 'form-control',
             'placeholder' => 'Please Select',
             'multiple' => 'true',
             'name' => 'name',
+            'required' => 'true',
             'field_type_id' => rand(1, 2),
         ]);
     }

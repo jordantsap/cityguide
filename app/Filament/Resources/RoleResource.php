@@ -29,14 +29,8 @@ class RoleResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function (string $operation, string $state,Forms\Set $set) {
-                        if ($operation === 'edit') {
-                            return;
-                        }
-                        $set('slug', Str::slug($state));
-                    }),
-                TextInput::make('slug'),
+                ->disabled(),
+//                TextInput::make('guard_name'),
                 Forms\Components\Select::make('permissions_id')
                     ->relationship('permissions', 'name')
                 ->multiple()
@@ -50,7 +44,8 @@ class RoleResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name'),
-                TextColumn::make('slug'),
+                TextColumn::make('permissions.name')
+                ->limit(50),
             ])
             ->filters([
                 //
@@ -60,9 +55,9 @@ class RoleResource extends Resource
 //                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+//                Tables\Actions\BulkActionGroup::make([
 //                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                ]),
             ]);
     }
 

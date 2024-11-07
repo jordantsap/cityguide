@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->string('address');
+            $table->json('name');
+            $table->json('slug');
+            $table->json('address');
             $table->string('phone');
             $table->foreignIdFor(\App\Models\User::class);
             $table->foreignIdFor(\App\Models\CompanyType::class);
